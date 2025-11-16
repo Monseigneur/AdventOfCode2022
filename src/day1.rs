@@ -5,7 +5,7 @@ pub fn run() {
 }
 
 fn part_1(contents: &str) -> usize {
-    let calorie_counts= get_calorie_counts(contents);
+    let calorie_counts = get_calorie_counts(contents);
 
     calorie_counts.into_iter().max().unwrap()
 }

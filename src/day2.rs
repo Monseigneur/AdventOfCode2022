@@ -17,7 +17,7 @@ impl Move {
             "A" | "X" => Self::Rock,
             "B" | "Y" => Self::Paper,
             "C" | "Z" => Self::Scissors,
-            _ => unreachable!()
+            _ => unreachable!(),
         }
     }
 }
@@ -29,10 +29,16 @@ fn part_1(contents: &str) -> usize {
 }
 
 fn parse_input(contents: &str) -> Vec<(Move, Move)> {
-    contents.lines().map(|line| {
-        let mut pieces = line.split_ascii_whitespace();
-        (Move::new(pieces.next().unwrap()), Move::new(pieces.next().unwrap()))
-    }).collect()
+    contents
+        .lines()
+        .map(|line| {
+            let mut pieces = line.split_ascii_whitespace();
+            (
+                Move::new(pieces.next().unwrap()),
+                Move::new(pieces.next().unwrap()),
+            )
+        })
+        .collect()
 }
 
 // Score is points for selected shape (Rock = 1, Paper = 2, Scissors = 3) and
@@ -51,7 +57,7 @@ fn calculate_score(opponent_move: Move, our_move: Move) -> usize {
         (Move::Paper, Move::Scissors) => 6,
         (Move::Scissors, Move::Rock) => 6,
         (Move::Scissors, Move::Paper) => 0,
-        _ => 3
+        _ => 3,
     };
 
     shape_points + outcome_points
@@ -70,7 +76,7 @@ impl Outcome {
             "X" => Self::Loss,
             "Y" => Self::Tie,
             "Z" => Self::Win,
-            _ => unreachable!()
+            _ => unreachable!(),
         }
     }
 }
@@ -78,18 +84,27 @@ impl Outcome {
 fn part_2(contents: &str) -> usize {
     let moves = parse_input_2(contents);
 
-    moves.into_iter().map(|(opponents_move, outcome)| {
-        let our_move = determine_move(opponents_move, outcome);
+    moves
+        .into_iter()
+        .map(|(opponents_move, outcome)| {
+            let our_move = determine_move(opponents_move, outcome);
 
-        calculate_score(opponents_move, our_move)
-    }).sum()
+            calculate_score(opponents_move, our_move)
+        })
+        .sum()
 }
 
 fn parse_input_2(contents: &str) -> Vec<(Move, Outcome)> {
-    contents.lines().map(|line| {
-        let mut pieces = line.split_ascii_whitespace();
-        (Move::new(pieces.next().unwrap()), Outcome::new(pieces.next().unwrap()))
-    }).collect()
+    contents
+        .lines()
+        .map(|line| {
+            let mut pieces = line.split_ascii_whitespace();
+            (
+                Move::new(pieces.next().unwrap()),
+                Outcome::new(pieces.next().unwrap()),
+            )
+        })
+        .collect()
 }
 
 fn determine_move(opponent_move: Move, outcome: Outcome) -> Move {
@@ -100,7 +115,7 @@ fn determine_move(opponent_move: Move, outcome: Outcome) -> Move {
         (Move::Paper, Outcome::Loss) => Move::Rock,
         (Move::Paper, Outcome::Win) => Move::Scissors,
         (Move::Scissors, Outcome::Loss) => Move::Paper,
-        (Move::Scissors, Outcome::Win) => Move::Rock
+        (Move::Scissors, Outcome::Win) => Move::Rock,
     }
 }
 
