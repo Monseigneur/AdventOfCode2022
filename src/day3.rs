@@ -1,4 +1,4 @@
-use std::collections::{HashSet, btree_set::Intersection};
+use std::collections::HashSet;
 
 const DAY: usize = 3;
 
